@@ -1,6 +1,6 @@
 // @ts-nocheck
 // Initialize "close", "expand" and "minimize" buttons
-
+// Import GoogleGenerativeAI and set API key
 const closeButton = document.querySelector('#close-btn');
 const minimizeButton = document.querySelector('#min-btn');
 const expandCollapseButton = document.querySelector('#expand-collapse-btn');
@@ -5571,3 +5571,5 @@ ipcRenderer.on('request-mic-toggle', () => {
 ipcRenderer.on('window-will-close', () => {
   stopAudioAndMic();
 });
+
+

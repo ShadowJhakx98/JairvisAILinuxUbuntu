@@ -12,6 +12,12 @@
 
     <script src="./lib/p5.min.js"></script>
     <script src="./lib/p5.sound.min.js"></script>
+    <!-- Add Electron-specific preload script -->
+    <script>
+      // Preload script to expose ipcRenderer to the renderer process
+      const { ipcRenderer } = require('electron');
+      window.ipcRenderer = ipcRenderer;
+  </script>
   </head>
   <body>
     <div id="master-bg" data-theme="dark" data-border="minimal"></div>
@@ -92,7 +98,22 @@
         </div>
       </div>
     </div>
-
+    <script>
+      // Function to handle user input and send it to the main process
+      async function sendUserInput() {
+          const userInput = document.getElementById('assistant-input').value;
+          // Send the userInput to the main process using ipcRenderer
+          ipcRenderer.send('user-input', userInput);
+      }
+  
+      // Add an event listener for form submission
+      document.getElementById('assistant-input').addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+              event.preventDefault();
+              sendUserInput();
+          }
+      });
+  </script>
     <script src="./main.js"></script>
   </body>
 </html>
